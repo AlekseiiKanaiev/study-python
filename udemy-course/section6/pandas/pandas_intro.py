@@ -2,6 +2,7 @@
 
 import pandas
 
+print(dir(pandas))
 # dataframe is table
 df1 = pandas.DataFrame([[2,3,4], [10,20,30]])
 print(df1)
