@@ -1,0 +1,10 @@
+We are going to use Nominatim() in the next video. Nominatim() currently has a bug. 
+To fix this problem, whenever you see these lines in the next video:
+
+from geopy.geocoders import Nominatim
+nom = Nominatim()
+change them to these
+
+from geopy.geocoders import ArcGIS
+nom = ArcGIS()
+The rest of the code remains the same.
