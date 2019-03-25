@@ -1,2 +1,2 @@
-se(51)
-# decompo
+
+    return d
