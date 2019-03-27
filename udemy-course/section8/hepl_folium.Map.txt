@@ -1,0 +1,204 @@
+Help on class Map in module folium.folium:
+
+class Map(branca.element.MacroElement)
+ |  Create a Map with Folium and Leaflet.js
+ |  
+ |  Generate a base map of given width and height with either default
+ |  tilesets or a custom tileset URL. The following tilesets are built-in
+ |  to Folium. Pass any of the following to the "tiles" keyword:
+ |  
+ |      - "OpenStreetMap"
+ |      - "Mapbox Bright" (Limited levels of zoom for free tiles)
+ |      - "Mapbox Control Room" (Limited levels of zoom for free tiles)
+ |      - "Stamen" (Terrain, Toner, and Watercolor)
+ |      - "Cloudmade" (Must pass API key)
+ |      - "Mapbox" (Must pass API key)
+ |      - "CartoDB" (positron and dark_matter)
+ |  
+ |  You can pass a custom tileset to Folium by passing a Leaflet-style
+ |  URL to the tiles parameter: ``http://{s}.yourtiles.com/{z}/{x}/{y}.png``
+ |  
+ |  Parameters
+ |  ----------
+ |  location: tuple or list, default None
+ |      Latitude and Longitude of Map (Northing, Easting).
+ |  width: pixel int or percentage string (default: '100%')
+ |      Width of the map.
+ |  height: pixel int or percentage string (default: '100%')
+ |      Height of the map.
+ |  tiles: str, default 'OpenStreetMap'
+ |      Map tileset to use. Can choose from a list of built-in tiles,
+ |      pass a custom URL or pass `None` to create a map without tiles.
+ |  API_key: str, default None
+ |      API key for Cloudmade or Mapbox tiles.
+ |  min_zoom: int, default 0
+ |      Minimum allowed zoom level for the tile layer that is created.
+ |  max_zoom: int, default 18
+ |      Maximum allowed zoom level for the tile layer that is created.
+ |  max_native_zoom: int, default None
+ |      The highest zoom level at which the tile server can provide tiles.
+ |      If provided you can zoom in past this level. Else tiles will turn grey.
+ |  zoom_start: int, default 10
+ |      Initial zoom level for the map.
+ |  attr: string, default None
+ |      Map tile attribution; only required if passing custom tile URL.
+ |  detect_retina: bool, default False
+ |      If true and user is on a retina display, it will request four
+ |      tiles of half the specified size and a bigger zoom level in place
+ |      of one to utilize the high resolution.
+ |  crs : str, default 'EPSG3857'
+ |      Defines coordinate reference systems for projecting geographical points
+ |      into pixel (screen) coordinates and back.
+ |      You can use Leaflet's values :
+ |      * EPSG3857 : The most common CRS for online maps, used by almost all
+ |      free and commercial tile providers. Uses Spherical Mercator projection.
+ |      Set in by default in Map's crs option.
+ |      * EPSG4326 : A common CRS among GIS enthusiasts.
+ |      Uses simple Equirectangular projection.
+ |      * EPSG3395 : Rarely used by some commercial tile providers.
+ |      Uses Elliptical Mercator projection.
+ |      * Simple : A simple CRS that maps longitude and latitude into
+ |      x and y directly. May be used for maps of flat surfaces
+ |      (e.g. game maps). Note that the y axis should still be inverted
+ |      (going from bottom to top).
+ |  control_scale : bool, default False
+ |      Whether to add a control scale on the map.
+ |  prefer_canvas : bool, default False
+ |      Forces Leaflet to use the Canvas back-end (if available) for
+ |      vector layers instead of SVG. This can increase performance
+ |      considerably in some cases (e.g. many thousands of circle
+ |      markers on the map).
+ |  no_touch : bool, default False
+ |      Forces Leaflet to not use touch events even if it detects them.
+ |  disable_3d : bool, default False
+ |      Forces Leaflet to not use hardware-accelerated CSS 3D
+ |      transforms for positioning (which may cause glitches in some
+ |      rare environments) even if they're supported.
+ |  zoom_control : bool, default True
+ |      Display zoom controls on the map.
+ |  
+ |  Returns
+ |  -------
+ |  Folium Map Object
+ |  
+ |  Examples
+ |  --------
+ |  >>> map = folium.Map(location=[45.523, -122.675],
+ |  ...                        width=750, height=500)
+ |  >>> map = folium.Map(location=[45.523, -122.675],
+ |                             tiles='Mapbox Control Room')
+ |  >>> map = folium.Map(location=(45.523, -122.675), max_zoom=20,
+ |                             tiles='Cloudmade', API_key='YourKey')
+ |  >>> map = folium.Map(
+ |  ...    location=[45.523, -122.675],
+ |  ...    zoom_start=2,
+ |  ...    tiles='http://{s}.tiles.mapbox.com/v3/mapbox.control-room/{z}/{x}/{y}.png',
+ |  ...    attr='Mapbox attribution'
+ |  ...)
+ |  
+ |  Method resolution order:
+ |      Map
+ |      branca.element.MacroElement
+ |      branca.element.Element
+ |      builtins.object
+ |  
+ |  Methods defined here:
+ |  
+ |  __init__(self, location=None, width='100%', height='100%', left='0%', top='0%', position='relative', tiles='OpenStreetMap', API_key=None, max_zoom=18, min_zoom=0, max_native_zoom=None, zoom_start=10, world_copy_jump=False, no_wrap=False, attr=None, min_lat=-90, max_lat=90, min_lon=-180, max_lon=180, max_bounds=False, detect_retina=False, crs='EPSG3857', control_scale=False, prefer_canvas=False, no_touch=False, disable_3d=False, subdomains='abc', png_enabled=False, zoom_control=True)
+ |      Initialize self.  See help(type(self)) for accurate signature.
+ |  
+ |  add_tile_layer(self, tiles='OpenStreetMap', name=None, API_key=None, max_zoom=18, min_zoom=0, max_native_zoom=None, attr=None, active=False, detect_retina=False, no_wrap=False, subdomains='abc', **kwargs)
+ |      Add a tile layer to the map. See TileLayer for options.
+ |  
+ |  choropleth(self, *args, **kwargs)
+ |      Call the Choropleth class with the same arguments.
+ |      
+ |      This method may be deleted after a year from now (Nov 2018).
+ |  
+ |  fit_bounds(self, bounds, padding_top_left=None, padding_bottom_right=None, padding=None, max_zoom=None)
+ |      Fit the map to contain a bounding box with the
+ |      maximum zoom level possible.
+ |      
+ |      Parameters
+ |      ----------
+ |      bounds: list of (latitude, longitude) points
+ |          Bounding box specified as two points [southwest, northeast]
+ |      padding_top_left: (x, y) point, default None
+ |          Padding in the top left corner. Useful if some elements in
+ |          the corner, such as controls, might obscure objects you're zooming
+ |          to.
+ |      padding_bottom_right: (x, y) point, default None
+ |          Padding in the bottom right corner.
+ |      padding: (x, y) point, default None
+ |          Equivalent to setting both top left and bottom right padding to
+ |          the same value.
+ |      max_zoom: int, default None
+ |          Maximum zoom to be used.
+ |      
+ |      Examples
+ |      --------
+ |      >>> map.fit_bounds([[52.193636, -2.221575], [52.636878, -1.139759]])
+ |  
+ |  keep_in_front(self, *args)
+ |      Pass one or multiples object that must stay in front.
+ |      
+ |      The ordering matters, the last one is put on top.
+ |      
+ |      Parameters
+ |      ----------
+ |      *args :
+ |          Variable length argument list. Any folium object that counts as an
+ |          overlay. For example FeatureGroup or a vector object such as Marker.
+ |  
+ |  render(self, **kwargs)
+ |      Renders the HTML representation of the element.
+ |  
+ |  ----------------------------------------------------------------------
+ |  Methods inherited from branca.element.Element:
+ |  
+ |  add_child(self, child, name=None, index=None)
+ |      Add a child.
+ |  
+ |  add_children(self, child, name=None, index=None)
+ |      Add a child.
+ |  
+ |  add_to(self, parent, name=None, index=None)
+ |      Add element to a parent.
+ |  
+ |  get_bounds(self)
+ |      Computes the bounds of the object and all it's children
+ |      in the form [[lat_min, lon_min], [lat_max, lon_max]].
+ |  
+ |  get_name(self)
+ |      Returns a string representation of the object.
+ |      This string has to be unique and to be a python and
+ |      javascript-compatible
+ |      variable name.
+ |  
+ |  get_root(self)
+ |      Returns the root of the elements tree.
+ |  
+ |  save(self, outfile, close_file=True, **kwargs)
+ |      Saves an Element into a file.
+ |      
+ |      Parameters
+ |      ----------
+ |      outfile : str or file object
+ |          The file (or filename) where you want to output the html.
+ |      close_file : bool, default True
+ |          Whether the file has to be closed after write.
+ |  
+ |  to_dict(self, depth=-1, ordered=True, **kwargs)
+ |      Returns a dict representation of the object.
+ |  
+ |  to_json(self, depth=-1, **kwargs)
+ |      Returns a JSON representation of the object.
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors inherited from branca.element.Element:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
