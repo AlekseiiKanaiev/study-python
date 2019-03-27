@@ -48,6 +48,10 @@ for lt, ln, n, el in zip(list(df['LAT']), list(df.LON), list(df.NAME), list(df.E
 fg.add_child(
         folium.Marker(location = [44, -110], popup = folium.Popup('My "good" marker', parse_html = True), 
                     icon = folium.Icon(color = 'blue')))
+
+fg.add_child(folium.GeoJson(data = open(path+'world.json', 'r' , encoding='utf-8-sig').read(), 
+                            style_function = lambda x: {'fillcolor':'yellow'}, show = False))
+
 # add a feature group to a map
 f_map.add_child(fg)
 
