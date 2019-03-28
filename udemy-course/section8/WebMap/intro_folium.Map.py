@@ -1,15 +1,12 @@
 #!/usr/bin/python3.5
 import sys
+
 import folium
 import pandas
 
 path = sys.path[0]+'/'
 
 df = pandas.read_csv(path+'Volcanoes.txt')
-# print(df)
-# l = list(df.ELEV)
-# l.sort()
-# print(l)
 
 def colorize(num):
     if num <= 1000:
@@ -24,7 +21,7 @@ def colorize(num):
 f_map = folium.Map(location = [44, -110], zoom_start = 6, tiles = 'Mapbox Bright')
 
 # create a feature group
-fg = folium.FeatureGroup(name = 'My Map')
+fgv = folium.FeatureGroup(name = 'Volcanoes')
 
 # create html string
 html = """
@@ -40,20 +37,35 @@ for lt, ln, n, el in zip(list(df['LAT']), list(df.LON), list(df.NAME), list(df.E
     # fg.add_child(
     #     folium.Marker(location = [lt, ln], popup = folium.Popup(iframe), 
     #                 icon = folium.Icon(icon_color = colorize(el), icon = 'fa-circle', prefix = 'fa', angle = 1)))
-    fg.add_child(
+    fgv.add_child(
         folium.CircleMarker(location = [lt, ln], popup = folium.Popup(iframe), radius = 5, weight = 1,
                         color = 'gray', fill = True, fill_color = colorize(el), fill_opacity = 0.7))
 
 # add my marker with "" in popup
-fg.add_child(
+fgv.add_child(
         folium.Marker(location = [44, -110], popup = folium.Popup('My "good" marker', parse_html = True), 
                     icon = folium.Icon(color = 'blue')))
 
-fg.add_child(folium.GeoJson(data = open(path+'world.json', 'r' , encoding='utf-8-sig').read(), 
-                            style_function = lambda x: {'fillcolor':'yellow'}, show = False))
+fgp = folium.FeatureGroup(name = 'Population')
 
-# add a feature group to a map
-f_map.add_child(fg)
+fgp.add_child(folium.GeoJson(data = open(path+'world.json', 'r' , encoding='utf-8-sig').read(), 
+    style_function=lambda x: {
+        'color':'gray', 
+        'fillColor':
+            'green' if x['properties']['POP2005'] < pow(10, 7) else
+            'orange' if pow(10, 7) <= x['properties']['POP2005'] < 5*pow(10, 7) else
+            'red' if 5*pow(10, 7) <= x['properties']['POP2005'] < 30*pow(10, 7) else 'darkviolet'
+    }))
+
+
+
+# add a feature group to the map
+f_map.add_child(fgv)
+f_map.add_child(fgp)
+
+# add layer controller to the map. 
+# important to put it affter adding layers to the map!!!
+f_map.add_child(folium.LayerControl('topright'))
 
 # and save map obj to a file
 f_map.save(path+'Map1.html')
