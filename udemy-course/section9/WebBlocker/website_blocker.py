@@ -5,8 +5,8 @@ import time
 from datetime import datetime as dt
 import re
 
-# hosts_path = '/etc/hosts'
-hosts_path = sys.path[0]+'/Hosts/hosts'
+hosts_path = '/etc/hosts'
+# hosts_path = sys.path[0]+'/Hosts/hosts'
 redirect = '127.0.0.1'
 
 try:
@@ -15,10 +15,10 @@ try:
 except FileNotFoundError:
     print('Could not fint the file! Use standart lit of the websites!')
     websites = ['www.facebook.com', 'facebook.com', 'www.youtube.com', 'youtube.com', '1']
-print(websites)
+# print(websites)
 
-p = re.compile(r'\bfacebook\.com\b')
-print("facebook.com" in websites)
+# p = re.compile(r'\bfacebook\.com\b')
+# print("facebook.com" in websites)
 
 
 while True:
@@ -28,17 +28,20 @@ while True:
         print('Working hours...')
         with open(hosts_path, 'r+') as f:
             content = f.read()
-            
+            if not content.endswith('\n'):
+                f.write('\n')
             for w in websites:
                 if not w in content.split():
-                    print(w)
-                    f.write('\n'+redirect+' '+w)
-                else:
-                    f.seek(0)
-                    for line in content.split('\n'):
-                        if not w in line.split():
-                            f.write(line+'\n')
-                    f.truncate()
-                    
+                    f.write(redirect+' '+w+'\n')
+    else:
+        print(dt.strftime(dt.now(), "%H:%M:%S"))
+        print('Fun hours...')
+        with open(hosts_path, 'r+') as f:
+            content = f.readlines()
+            f.seek(0)
+            for line in content:
+                if not any(website in line for website in websites):
+                    f.write(line)
+            f.truncate()
     # delay in seconds!!!
     time.sleep(30)
