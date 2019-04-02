@@ -11,3 +11,6 @@ We use heroku to host our website
 7) use git repository and push your exactly branch to herocu:
     >>>git push herocu <your branch>
 
+to push changes:
+1) >>>heroku login
+2)
