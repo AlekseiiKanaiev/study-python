@@ -6,4 +6,8 @@ We use heroku to host our website
 5) create 3 files:
     - requirements.txt: with library dependencies of your app
     - Procfile:         with instructions to herocu on your main file(app.py)
-    - runtime.txt: 
+    - runtime.txt:      with python version
+6) >>>herocu git:remote --app <your app name>
+7) use git repository and push your exactly branch to herocu:
+    >>>git push herocu <your branch>
+
