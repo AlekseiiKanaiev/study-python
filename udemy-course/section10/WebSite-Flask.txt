@@ -1,0 +1,16 @@
+We use heroku to host our website
+1) install heroku on your PC:                       >>>sudo snap install --classic heroku
+2) login to heroku:                                 >>>heroku login
+3) create new app with your name on heroku server:  >>>herocu create <name>
+4) you can check your apps on heroku:               >>>heroku apps
+5) create 3 files:
+    - requirements.txt: with library dependencies of your app
+    - Procfile:         with instructions to herocu on your main file(app.py)
+    - runtime.txt:      with python version
+6) >>>herocu git:remote --app <your app name>
+7) use git repository and push your exactly branch to herocu:
+    >>>git push herocu <your branch>
+
+to push changes:
+1) >>>heroku login
+2)
