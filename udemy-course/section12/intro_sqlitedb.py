@@ -47,7 +47,33 @@ def view_db():
     con.close()
     return rows
 
+def delete_data(item):
+    # Connect to a DB
+    con = sqlite3.connect('lite.db')
+    # Create a cursor object
+    cur = con.cursor()
+    # you must write coma after 'item' because thre is only 1 item, otherwise you will get an error
+    cur.execute('DELETE FROM store WHERE item = ?', (item,))
+    # Commit a changes
+    con.commit()
+    # Close DB connection
+    con.close()
+
+def update_data(data):
+    # Connect to a DB
+    con = sqlite3.connect('lite.db')
+    # Create a cursor object
+    cur = con.cursor()
+    cur.execute('UPDATE store SET quantity=?, price=? WHERE item = ?', (data['quantity'], data['price'],  data['name'],))
+    # Commit a changes
+    con.commit()
+    # Close DB connection
+    con.close()
+
 # create_table()
-# data = {'name': 'Wine glass', 'quantity': 8, 'price': 12.6}
+data = {'name': 'Wine glass', 'quantity': 24, 'price': 123.6}
+new_data = {'name': 'Wine glass', 'quantity': 2, 'price': 12.6}
 # add_data(data)
+# delete_data('Wine glass')
+update_data(new_data)
 print(view_db())

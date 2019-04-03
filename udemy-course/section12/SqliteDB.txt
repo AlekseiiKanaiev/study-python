@@ -1,4 +1,4 @@
-Use DB:
+Working with sqlite DB:
 1) Connect to a DB
 2) Create a cursor object
 3) Write an SQL query
