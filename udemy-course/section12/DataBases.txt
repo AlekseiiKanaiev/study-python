@@ -1,0 +1,6 @@
+Use DB:
+1) Connect to a DB
+2) Create a cursor object
+3) Write an SQL query
+4) Commit a changes
+5) Close DB connection
