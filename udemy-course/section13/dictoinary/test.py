@@ -35,7 +35,6 @@ from difflib import get_close_matches as gcm
 path = sys.path[0]+'/'
 data = json.load(open(path + 'data.json'), encoding = 'utf-8')
 
-b = b'hello'
-l = [b, 'hello']
-for el in l:
-    print(el)
+b = 'do'
+l = ['hello', 'do you']
+print(b in l)

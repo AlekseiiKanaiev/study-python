@@ -35,9 +35,9 @@ def add_data(word):
 def view_data(word):
     with psycopg2.connect(connection) as conn:
         with conn.cursor(cursor_factory = DictCursor) as curs:
-            curs.execute('SELECT dictionary.meaninig FROM dictionary WHERE word = %s', (word,))
-            for i in curs:
-                print(''.join(i))
+            cur1 = curs.execute('SELECT dictionary.meaninig FROM dictionary WHERE word = %s', (word,))
+            cur2 = curs.execute('SELECT dictionary.word FROM dictionary')
+            print(cur2)
 word = 'do'
 # print(normalize_strs(data[word]))
 # create_table()
