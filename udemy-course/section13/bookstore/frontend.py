@@ -20,52 +20,52 @@ def view_all():
             # line.append('\n')
             s = '--'.join(list(map(lambda x: str(x), line)))+'\n'
             t.insert(END, s)
+    else: t.insert(END, 'No data found')
 
 def search():
         t.delete(1.0, END)
+        data = []
         if title.get():
             data = search_data('title', title.get())
-        elif author.get():
-            data = search_data('author', author.get())
-        elif year.get().isnumeric():
-            data = search_data('year', year.get())
-        elif isbn.get().isnumeric():
-            data = search_data('isbn', isbn.get())
-        else:
-            t.insert(1.0, 'No search parametr enter or incorect parametr enter')
-            return
+        if author.get():
+            data = list(filter(lambda x: author.get() in x[2].lower(), data)) if data else search_data('author', author.get())
+        if year.get().isnumeric():
+            data = list(filter(lambda x: year.get() in str(x[3]), data)) if data else search_data('year', year.get())
+        if isbn.get().isnumeric():
+            data = list(filter(lambda x: isbn.get() in str(x[4]), data)) if data else search_data('isbn', isbn.get())
         if data:
-            if title.get():
-                # data = list(map(lambda el: filter(lambda x: title.get() in x, el), data))
-                data = list(filter(lambda x: title.get() in x[1], data))
-            if author.get():
-                data = list(filter(lambda x: author.get() in x[2], data))
-            if year.get():
-                data = list(filter(lambda x: year.get() in str(x[3]), data))
-            if isbn.get():
-                data = list(filter(lambda x: isbn.get() in str(x[4]), data))
             for line in data:
                 s = '--'.join(list(map(lambda x: str(x), line)))+'\n'
                 t.insert(END, s)
         else:
-            t.insert(1.0, 'Nothing found')
+            t.insert(1.0, 'Nothing found or incorect enter parametr')
 
 def add():
         t.delete(1.0, END)
         if title.get() and author.get() and year.get() and isbn.get():
             data = {'id': max(view_data())[0]+1, 'title': title.get(), 'author': author.get(), 'year': year.get(), 'isbn': isbn.get()}
-        #     print(add_data(data))
             view_all() if add_data(data) else t.insert(1.0, 'Wrong data')
         else:
             t.insert(1.0, 'Wrong data')
 
 def update():
-        delete_all()
-        print(t.selection_get())
+        if t.selection_get():
+            select = t.selection_get().split('--')
+            if len(select) == 5:
+                data = {}
+                if title.get(): data['title'] = title.get()
+                if author.get(): data['author'] = author.get()
+                if year.get(): data['year'] = year.get()
+                if isbn.get(): data['isbn'] = isbn.get()
+                update_data(select[0], data)
+                view_all()
 
 def delete():
-        delete_all()
-        pass
+        if t.selection_get():
+            select = t.selection_get().split('--')
+            if len(select) == 5:
+                delete_data(select[0])
+                view_all()
 
 window = Tk()
 window.title('Booksore')
