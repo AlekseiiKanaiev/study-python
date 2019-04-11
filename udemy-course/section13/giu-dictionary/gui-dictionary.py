@@ -55,5 +55,6 @@ t = Text(window)
 t.grid(rowspan = 3, columnspan = 2)
 
 
+
 # without it the window will open and close in 1s
 window.mainloop()
