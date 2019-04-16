@@ -9,3 +9,5 @@
     >>>\conninfo
    Output:
     You are connected to database "postgre" as user "postgre" via socket in "/var/run/postgresql" at port "5432".
+4) To restart server (you will need it) use:
+    >>>sudo service postgresql restart
