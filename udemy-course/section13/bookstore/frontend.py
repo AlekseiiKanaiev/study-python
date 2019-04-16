@@ -2,11 +2,30 @@
 from tkinter import *
 from backend import *
 
-def window_quit():
-    window.quit()
+# Alternative of lb.get(ANCHOR)
+# bind this function to select event of listbox
+# create global variable to call it outside
+# plus we fill the entries with the selected row
+def get_selected_row(event):
+    global selected
+    if lb.curselection():
+        index = lb.curselection()[0]
+        selected = lb.get(index)
+        e1.delete(0, END)
+        e2.delete(0, END)    
+        e3.delete(0, END)
+        e4.delete(0, END)
+        if isinstance(selected, tuple):
+            e1.insert(0, selected[1])
+            e2.insert(0, selected[2])
+            e3.insert(0, selected[3])
+            e4.insert(0, selected[4])
+
+# def window_quit():
+#     window.quit()
 
 def delete_all():
-    t.delete(1.0, END)
+    lb.delete(0, END)
     e1.delete(0, END)
     e2.delete(0, END)    
     e3.delete(0, END)
@@ -17,55 +36,76 @@ def view_all():
     data = view_data()
     if data:
         for line in data:
-            # line.append('\n')
-            s = '--'.join(list(map(lambda x: str(x), line)))+'\n'
-            t.insert(END, s)
-    else: t.insert(END, 'No data found')
+            lb.insert(END, line)
+    else: lb.insert(END, 'No data found')
 
 def search():
-        t.delete(1.0, END)
-        data = []
-        if title.get():
-            data = search_data('title', title.get())
-        if author.get():
-            data = list(filter(lambda x: author.get() in x[2].lower(), data)) if data else search_data('author', author.get())
-        if year.get().isnumeric():
-            data = list(filter(lambda x: year.get() in str(x[3]), data)) if data else search_data('year', year.get())
-        if isbn.get().isnumeric():
-            data = list(filter(lambda x: isbn.get() in str(x[4]), data)) if data else search_data('isbn', isbn.get())
-        if data:
-            for line in data:
-                s = '--'.join(list(map(lambda x: str(x), line)))+'\n'
-                t.insert(END, s)
-        else:
-            t.insert(1.0, 'Nothing found or incorect enter parametr')
+    lb.delete(0, END)
+    data = []
+    if title.get():
+        data = search_data('title', title.get())
+    if author.get():
+        data = list(filter(lambda x: author.get().lower() in x[2].lower(), data)) if data else search_data('author', author.get())
+    if year.get().isnumeric():
+        data = list(filter(lambda x: year.get() in str(x[3]), data)) if data else search_data('year', year.get())
+    if isbn.get().isnumeric():
+        data = list(filter(lambda x: isbn.get() in str(x[4]), data)) if data else search_data('isbn', isbn.get())
+    if data:
+        for line in data:
+            lb.insert(END, line)
+    else:
+        lb.insert(0, 'Nothing found or incorect enter parametr')
 
 def add():
-        t.delete(1.0, END)
-        if title.get() and author.get() and year.get() and isbn.get():
-            data = {'id': max(view_data())[0]+1, 'title': title.get(), 'author': author.get(), 'year': year.get(), 'isbn': isbn.get()}
-            view_all() if add_data(data) else t.insert(1.0, 'Wrong data')
-        else:
-            t.insert(1.0, 'Wrong data')
+    lb.delete(0, END)
+    if title.get() and author.get() and year.get() and isbn.get():
+        data = {'title': title.get(), 'author': author.get(), 'year': year.get(), 'isbn': isbn.get()}
+        view_all() if add_data(data) else lb.insert(0, 'Wrong data')
+    else:
+        lb.insert(END, 'Wrong data')
 
 def update():
-        if t.selection_get():
-            select = t.selection_get().split('--')
-            if len(select) == 5:
-                data = {}
-                if title.get(): data['title'] = title.get()
-                if author.get(): data['author'] = author.get()
-                if year.get(): data['year'] = year.get()
-                if isbn.get(): data['isbn'] = isbn.get()
-                update_data(select[0], data)
+    global selected
+    # if lb.get(ANCHOR):
+    if selected:
+        # id = lb.get(ANCHOR)[0]
+        id = selected[0]
+        if id:
+            data = {}
+            if title.get(): data['title'] = title.get()
+            if author.get(): data['author'] = author.get()
+            if year.get().isdigit(): data['year'] = year.get()
+            if isbn.get().isdigit(): data['isbn'] = isbn.get()
+            if data:
+                update_data(id, data)
                 view_all()
+                selected = ''
+            else:
+                lb.delete(0, END)
+                lb.insert(END, 'No new data enter or incorrect data')
+    else:
+        lb.delete(0, END)
+        lb.insert(END, 'No string selected')
+
 
 def delete():
-        if t.selection_get():
-            select = t.selection_get().split('--')
-            if len(select) == 5:
-                delete_data(select[0])
+    global selected
+    # if lb.get(ANCHOR):
+    if selected:
+        if chvar.get():
+            # id = lb.get(ANCHOR)[0]
+            id = selected[0]
+            if id:
+                delete_data(id)
                 view_all()
+                chvar.set(False)
+                selected = ''
+        else:
+            lb.delete(ANCHOR)
+            selected = ''
+    else:
+        lb.delete(0, END)
+        lb.insert(END, 'No string selected')    
 
 window = Tk()
 window.title('Booksore')
@@ -99,8 +139,17 @@ isbn = StringVar()
 e4 = Entry(window, textvariable = isbn)
 e4.grid(row = 1, column = 3)
 
-t = Text(window, height = 12, width = 40, wrap = WORD)
-t.grid(rowspan = 6, columnspan = 2)
+lb = Listbox(window, height = 12, width = 40)
+lb.grid(rowspan = 7, columnspan = 2, row = 2, column = 0)
+
+sb = Scrollbar(window)
+sb.grid(column = 2, row = 2, rowspan = 7)
+# binding scrollbar to textfiel
+sb['command'] = lb.yview
+lb['yscrollcommand'] = sb.set
+
+# binding new function to listbox (create new method)
+lb.bind('<<ListboxSelect>>', get_selected_row)
 
 b1 = Button(window, text = 'View All', width = 12, command = view_all)
 b1.grid(row = 2, column = 3)
@@ -117,7 +166,14 @@ b1.grid(row = 5, column = 3)
 b1 = Button(window, text = 'Delete Selected', width = 12, command = delete)
 b1.grid(row = 6, column = 3)
 
-b1 = Button(window, text = 'Close', width = 12, command = window_quit)
-b1.grid(row = 7, column = 3)
+chvar = BooleanVar()
+chvar.set(0)
+ch = Checkbutton(window, text = 'Delete from DB', variable = chvar, onvalue = True, offvalue = False)
+ch.grid(row = 7, column = 3)
+
+b1 = Button(window, text = 'Close', width = 12, command = window.destroy)
+b1.grid(row = 8, column = 3)
+
+
 
 window.mainloop()
