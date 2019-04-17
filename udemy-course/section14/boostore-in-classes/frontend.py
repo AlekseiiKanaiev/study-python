@@ -11,29 +11,31 @@ class Bookstore():
         self.window.title('Booksore')
         self.window.resizable(False, False)
 
-        self.l1 = Label(window, text = 'Title')
-        self.l1.grid(row = 0, column = 0)
+        self.selected = ''
+
+        l1 = Label(window, text = 'Title')
+        l1.grid(row = 0, column = 0)
 
         self.title = StringVar()
         self.e1 = Entry(window, textvariable = self.title)
         self.e1.grid(row = 0, column = 1)
 
-        self.l2 = Label(window, text = 'Author')
-        self.l2.grid(row = 0, column = 2)
+        l2 = Label(window, text = 'Author')
+        l2.grid(row = 0, column = 2)
 
         self.author = StringVar()
         self.e2 = Entry(window, textvariable = self.author)
         self.e2.grid(row = 0, column = 3)
 
-        self.l3 = Label(window, text = 'Year')
-        self.l3.grid(row = 1, column = 0)
+        l3 = Label(window, text = 'Year')
+        l3.grid(row = 1, column = 0)
 
         self.year = StringVar()
         self.e3 = Entry(window, textvariable = self.year)
         self.e3.grid(row = 1, column = 1)
 
-        self.l4 = Label(window, text = 'ISBN')
-        self.l4.grid(row = 1, column = 2)
+        l4 = Label(window, text = 'ISBN')
+        l4.grid(row = 1, column = 2)
 
         self.isbn = StringVar()
         self.e4 = Entry(window, textvariable = self.isbn)
@@ -42,34 +44,34 @@ class Bookstore():
         self.lb = Listbox(window, height = 12, width = 40)
         self.lb.grid(rowspan = 7, columnspan = 2, row = 2, column = 0)
 
-        self.sb = Scrollbar(window)
-        self.sb.grid(column = 2, row = 2, rowspan = 7)
+        sb = Scrollbar(window)
+        sb.grid(column = 2, row = 2, rowspan = 7)
         # binding scrollbar to textfiel
-        self.sb['command'] = self.lb.yview
-        self.lb['yscrollcommand'] = self.sb.set
+        sb['command'] = self.lb.yview
+        self.lb['yscrollcommand'] = sb.set
 
         # binding new function to listbox (create new method)
         self.lb.bind('<<ListboxSelect>>', self.get_selected_row)
 
-        self.b1 = Button(window, text = 'View All', width = 12, command = self.view_all)
-        self.b1.grid(row = 2, column = 3)
+        b1 = Button(window, text = 'View All', width = 12, command = self.view_all)
+        b1.grid(row = 2, column = 3)
 
-        self.b2 = Button(window, text = 'Search Entry', width = 12, command = self.search)
-        self.b2.grid(row = 3, column = 3)
+        b2 = Button(window, text = 'Search Entry', width = 12, command = self.search)
+        b2.grid(row = 3, column = 3)
 
-        self.b3 = Button(window, text = 'Add Entry', width = 12, command = self.add)
-        self.b3.grid(row = 4, column = 3)
+        b3 = Button(window, text = 'Add Entry', width = 12, command = self.add)
+        b3.grid(row = 4, column = 3)
 
-        self.b1 = Button(window, text = 'Update Selected', width = 12, command = self.update)
-        self.b1.grid(row = 5, column = 3)
+        b1 = Button(window, text = 'Update Selected', width = 12, command = self.update)
+        b1.grid(row = 5, column = 3)
 
-        self.b1 = Button(window, text = 'Delete Selected', width = 12, command = self.delete)
-        self.b1.grid(row = 6, column = 3)
+        b1 = Button(window, text = 'Delete Selected', width = 12, command = self.delete)
+        b1.grid(row = 6, column = 3)
 
         self.chvar = BooleanVar()
-        self.chvar.set(0)
-        self.ch = Checkbutton(window, text = 'Delete from DB', variable = self.chvar, onvalue = True, offvalue = False)
-        self.ch.grid(row = 7, column = 3)
+        self.chvar.set(False)
+        ch = Checkbutton(window, text = 'Delete from DB', variable = self.chvar, onvalue = True, offvalue = False)
+        ch.grid(row = 7, column = 3)
 
         self.b1 = Button(window, text = 'Close', width = 12, command = window.destroy)
         self.b1.grid(row = 8, column = 3)
