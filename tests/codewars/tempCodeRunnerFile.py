@@ -1,17 +1,15 @@
- nbMonths(startPriceOld, startPriceNew, savingperMonth, percentLossByMonth):
-#     # if startPriceOld > startPriceNew: return [0, startPriceOld-startPriceNew]
-#     pc = 1-percentLossByMonth/100
-#     m = 0
-#     # print(pc)
-#     # startPriceOld *= pc
-#     # startPriceNew *= pc
-#     while startPriceOld+savingperMonth*m < startPriceNew:
-#         m += 1
-#         print(m, pc)
-#         startPriceOld *= pc
-#         startPriceNew *= pc
-#         pc -= 0.25/100
-#         print('old: ',startPriceOld+savingperMonth*m)
-#         print('new: ',startPriceNew)
-#     print([m, startPriceOld+savingperMonth*m - startPriceNew])
-#     return 
+obot1['speed'] >= robot2['speed']:
+        #         robot2['health'] -= tactics[t1]
+        #         if robot2['speed'] <= 0:
+        #             return '{} has won the fight.'.format(robot1['name'])
+        #         robot1['health'] -= tactics[t2]
+        #         if robot2['health'] <= 0:
+        #             return '{} has won the fight.'.format(robot2['name'])
+        #     else:
+        #         robot1['health'] -= tactics[t2]
+        #         if robot1['health'] <= 0:
+        #             return '{} has won the fight.'.format(robot2['name'])
+        #         robot2['health'] -=tactics[t1]
+        #         if robot2['health'] <= 0:
+        #             return '{} has won the fight.'.format(robot1['name'])
+        # return 
