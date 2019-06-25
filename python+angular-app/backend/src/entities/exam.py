@@ -1,0 +1,19 @@
+# coding=utf-8
+
+# represent the entity
+
+from sqlalchemy import String, Column
+
+from .entity import Base, Entity
+
+# class called Exam that inherits from Entity and from Base
+class Exam(Entity, Base):
+    __tablename__ = 'exams'
+
+    title = Column(String)
+    description = Column(String)
+
+    def __init__(self, title, description, created_by):
+        Entity.__init__(self, created_by)
+        self.title = title
+        self.description = description
