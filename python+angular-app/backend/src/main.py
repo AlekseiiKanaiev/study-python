@@ -1,3 +1,4 @@
+# coding=utf-8
 #!/usr/bin/python3.5
 
 # import Session, engine, and Base from the .entities.entity module.
