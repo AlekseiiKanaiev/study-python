@@ -1,0 +1,13 @@
+1) To install postgreSQL with some additional utilities and functionality use:
+    >>>sudo apt install postgresql postgresql-contrib
+2) To Switch Over to the postgres Account:
+    >>>sudo -i -u postgres (to Switch to Account itself)
+    >>>psql (to access a Postgres prompt immediately)
+   OR you can Access a Postgres Prompt Without Switching Accounts
+    >>>sudo -u postgres psql
+3) Once logged in, you can get check your current connection information by typing:
+    >>>\conninfo
+   Output:
+    You are connected to database "postgre" as user "postgre" via socket in "/var/run/postgresql" at port "5432".
+4) To restart server (you will need it) use:
+    >>>sudo service postgresql restart

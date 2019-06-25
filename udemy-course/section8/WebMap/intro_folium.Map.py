@@ -19,7 +19,10 @@ def colorize(num):
         return 'darkviolet'
 # create a map obj
 f_map = folium.Map(location = [44, -110], zoom_start = 6, tiles = 'Mapbox Bright')
-
+# create another layer
+tl = folium.TileLayer(tiles = 'OpenStreetMap')
+# add layer to the map
+tl.add_to(f_map)
 # create a feature group
 fgv = folium.FeatureGroup(name = 'Volcanoes')
 
@@ -62,6 +65,7 @@ fgp.add_child(folium.GeoJson(data = open(path+'world.json', 'r' , encoding='utf-
 # add a feature group to the map
 f_map.add_child(fgv)
 f_map.add_child(fgp)
+
 
 # add layer controller to the map. 
 # important to put it affter adding layers to the map!!!
