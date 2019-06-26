@@ -9,10 +9,17 @@ from .entities.exam import Exam, ExamSchema
 
 from flask import Flask, jsonify, request
 
+# As your Flask app will receive requests from a SPA, you will need to allow CORS on it. 
+# If you don't do so, most browsers will block requests to your API because 
+# the backend does not explicitly allow Cross-Origin Resource Sharing (CORS).
+from flask_cors import CORS
+
 # create database schema
 Base.metadata.create_all(engine)
 
 app = Flask(__name__)
+# Without any further configuration, flask-cors allows CORS for all domains on all routes. 
+CORS(app)
 
 # if len(exams) == 0:
 #     # create and persist dummy exam
