@@ -2,10 +2,10 @@
 #!/usr/bin/python3.5
 
 # import Session, engine, and Base from the .entities.entity module.
-from entities.entity import Base, Session, engine
+from .entities.entity import Base, Session, engine
 
 # import the Exam class from the .entities.exam module.
-from entities.exam import Exam
+from .entities.exam import Exam
 
 # create database schema
 Base.metadata.create_all(engine)
@@ -17,7 +17,7 @@ session = Session()
 exams = session.query(Exam).all()
 
 
-if exams == 0:
+if len(exams) == 0:
     # create and persist dummy exam
     python_exam = Exam('SQLAlchemy Exam', 'Test your knowledge about SQLAlchemy.', 'script')
     session.add(python_exam)
