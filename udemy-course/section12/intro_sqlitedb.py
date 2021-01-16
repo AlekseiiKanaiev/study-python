@@ -1,10 +1,11 @@
 #!/usr/bin/python3.5
 import sqlite3
+path = 'udemy-course/section12/lite.db'
 
 def create_table():
     # Connect to a DB
     # if there is no file, it will create it
-    con = sqlite3.connect('lite.db')
+    con = sqlite3.connect(path)
 
     # Create a cursor object
     cur = con.cursor()
@@ -22,7 +23,7 @@ def create_table():
 
 def add_data(data):
     # Connect to a DB
-    con = sqlite3.connect('lite.db')
+    con = sqlite3.connect(path)
     # Create a cursor object
     cur = con.cursor()
     # add some data to DB
@@ -36,7 +37,7 @@ def add_data(data):
 
 def view_db():
     # Connect to a DB
-    con = sqlite3.connect('lite.db')
+    con = sqlite3.connect(path)
     # Create a cursor object
     cur = con.cursor()
     # selecting all (*) from DB
@@ -49,7 +50,7 @@ def view_db():
 
 def delete_data(item):
     # Connect to a DB
-    con = sqlite3.connect('lite.db')
+    con = sqlite3.connect(path)
     # Create a cursor object
     cur = con.cursor()
     # you must write coma after 'item' because thre is only 1 item, otherwise you will get an error
@@ -61,10 +62,12 @@ def delete_data(item):
 
 def update_data(data):
     # Connect to a DB
-    con = sqlite3.connect('lite.db')
+    con = sqlite3.connect(path)
     # Create a cursor object
     cur = con.cursor()
-    cur.execute('UPDATE store SET quantity=?, price=? WHERE item = ?', (data['quantity'], data['price'],  data['name'],))
+    s = 'quantity'
+    command = f'UPDATE store SET {s} = ?, price=? WHERE item = ?'
+    cur.execute(command, (data['quantity'], data['price'],  data['name'],))
     # Commit a changes
     con.commit()
     # Close DB connection
