@@ -11,7 +11,7 @@ bot_id = Configurations.bot_id
 
 bot = telebot.TeleBot(bot_id)
 
-commands = ['/start', '/commands', '/help', '/show', '/change']
+commands = ['/start', '/commands', '/help', '/show', '/change', '/showmyrep']
 
 def create_table():
     con = sqlite3.connect(db_path)
@@ -112,7 +112,7 @@ def change_reputation_command(message, users, messanger, members, con):
 
 def show_reputation_command(con, message, messanger):
     data = json.loads(get_reputation_for_member(con, messanger)[0][1])
-    msg = ''
+    msg = 'Reputation raiting for @{}:\n'.format(messanger)
     users = [item for item in message.text.split(' ') if item.startswith('@')]
     print(users)
     if users:
@@ -122,8 +122,23 @@ def show_reputation_command(con, message, messanger):
         for key,val in data.items():
             msg += '@{}: {} \n'.format(key, val)
     if not msg:
-        msg = 'You are alone in this raiting yet'
+        msg = '@{}, you are alone in this raiting yet('.format(messanger)
     bot.send_message(message.chat.id, msg)
+
+def show_my_reputation(con, message, messanger):
+    users = [item for item in message.text.split(' ') if item.startswith('@')]
+    print(users)
+    if users:
+        members = [item[0] for item in get_members_from_DB(con) if item[0] in users]
+    else:
+        members = [item[0] for item in get_members_from_DB(con) if item[0] != messanger]
+    msg = '@{}, your reputation from:\n'.format(messanger)
+    for m in members:
+        m_data = json.loads(get_reputation_for_member(con, m)[0][1])
+        if m_data:
+            msg += '@{}: {}'.format(m, m_data[messanger])
+    bot.send_message(message.chat.id, msg)
+
 
 @bot.message_handler(commands=[c[1:] for c in commands])
 def start_message(message):
@@ -163,6 +178,11 @@ def start_message(message):
     elif message.text == '/help' or message.text == '/help@{}'.format(bot_name):
         description = 'With this bot you can change reputation status with everyone who joined ti this raiting (when typed command /start). \n You can type /change <user_name> <sign>(<number>) to change reputation.\n '
         bot.send_message(message.chat.id, description)
+    elif message.text == '/showmyrep' or message.text == '/showmyrep@{}'.format(bot_name):
+        if messanger in members:
+            show_my_reputation(con, message, messanger)
+        else:
+            no_register(message)
     elif '/show' in message.text:
         if messanger in members:
             show_reputation_command(con, message, messanger)

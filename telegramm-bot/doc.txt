@@ -1,9 +1,16 @@
 TestBot
-test_mytest_isnottaken_bot token:
-1524883599:AAGCtt6AStqSHfK8bVQpsBGH4SWizZECoIk
+test_mytest_isnottaken_bot
 
 RRBot
 reputation_rating_bot
+
+
+commands:
+start -  join to reputation raiting
+help - show description
+commands - list of all commands
+show - show your reputation rating to others
+showmyrep - show your reputation from others
 
 
 {'content_type': 'text', 'id': 29, 'message_id': 29, 'from_user': {'id': 440453537, 'is_bot': False, 'first_name': 'Алексей', 'username': 'kanaev_oleksii', 'last_name': 'Канаев', 'language_code': 'ru', 'can_join_groups': None, 'can_read_all_group_messages': None, 'supports_inline_queries': None}, 'date': 1610694413, 'chat': {'id': 440453537, 'type': 'private', 'title': None, 'username': 'kanaev_oleksii', 'first_name': 'Алексей', 'last_name': 'Канаев', 'photo': None, 'bio': None, 'description': None, 'invite_link': None, 'pinned_message': None, 'permissions': None, 'slow_mode_delay': None, 'sticker_set_name': None, 'can_set_sticker_set': None, 'linked_chat_id': None, 'location': None}, 'forward_from': None, 'forward_from_chat': None, 'forward_from_message_id': None, 'forward_signature': None, 'forward_sender_name': None, 'forward_date': None, 'reply_to_message': None, 'edit_date': None, 'media_group_id': None, 'author_signature': None, 'text': '/show', 'entities': [<telebot.types.MessageEntity object at 0x7fa1d72b41c0>], 'caption_entities': None, 'audio': None, 'document': None, 'photo': None, 'sticker': None, 'video': None, 'video_note': None, 'voice': None, 'caption': None, 'contact': None, 'location': None, 'venue': None, 'animation': None, 'dice': None, 'new_chat_member': None, 'new_chat_members': None, 'left_chat_member': None, 'new_chat_title': None, 'new_chat_photo': None, 'delete_chat_photo': None, 'group_chat_created': None, 'supergroup_chat_created': None, 'channel_chat_created': None, 'migrate_to_chat_id': None, 'migrate_from_chat_id': None, 'pinned_message': None, 'invoice': None, 'successful_payment': None, 'connected_website': None, 'reply_markup': None, 'json': {'message_id': 29, 'from': {'id': 440453537, 'is_bot': False, 'first_name': 'Алексей', 'last_name': 'Канаев', 'username': 'kanaev_oleksii', 'language_code': 'ru'}, 'chat': {'id': 440453537, 'first_name': 'Алексей', 'last_name': 'Канаев', 'username': 'kanaev_oleksii', 'type': 'private'}, 'date': 1610694413, 'text': '/show', 'entities': [{'offset': 0, 'length': 5, 'type': 'bot_command'}]}}
