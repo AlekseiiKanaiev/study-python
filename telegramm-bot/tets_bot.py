@@ -2,85 +2,40 @@ import telebot
 import sqlite3
 from sqlite3 import Error
 import json
+from config import Configurations
 
-# def create_connection():
-#     connection = None
-#     try:
-#         connection = sqlite3.connect('/home/oleksii/VSCode/Study-python/telegramm-bot/Chinook_Sqlite.sqlite')
-#         print('Connection succesfull')
-#     except Error as e:
-#         print(f'Error {e} occured')
-#     return connection
+print(Configurations.bot_name)
+bot_name = Configurations.bot_name
+db_path = Configurations.db_path
+bot_id = Configurations.bot_id
 
-# conn = create_connection()
-# # Создаем курсор - это специальный объект который делает запросы и получает их результаты
-# cursor = conn.cursor()
-# # Делаем SELECT запрос к базе данных, используя обычный SQL-синтаксис
-# cursor.execute("SELECT Name FROM Artist ORDER BY Name LIMIT 3")
-# # Получаем результат сделанного запроса
-# results = cursor.fetchall()
-# print(results)
-# member = {'@rob': {'@helen':0}}
-# print(json.dumps(member))
-# # Делаем INSERT запрос к базе данных, используя обычный SQL-синтаксис
-# cursor.execute("INSERT into Artist values (Null, ?) ", json.dumps(member))
-# # Если мы не просто читаем, но и вносим изменения в базу данных - необходимо сохранить транзакцию
-# conn.commit()
-# # Проверяем результат
-# cursor.execute("SELECT Name FROM Artist ORDER BY Name LIMIT 3")
-# results = cursor.fetchall()
-# print(results)
+bot = telebot.TeleBot(bot_id)
+
+commands = ['/start', '/commands', '/help', '/show', '/change']
 
 def create_table():
-    # Connect to a DB
-    # if there is no file, it will create it
-    con = sqlite3.connect('telegramm-bot/reputationBot.db')
-
-    # Create a cursor object
+    con = sqlite3.connect(db_path)
     cur = con.cursor()
-
-    # Write an SQL query (create table with 3 columns)
-    # if you run code twice, you will get an error
-    # to avoid this you shoud and a condition to SQL code
-    # cur.execute('CREATE TABLE IF NOT EXISTS reputation (members TEXT)')
     cur.execute('CREATE TABLE IF NOT EXISTS reputation (members TEXT, data TEXT)')
-
-
-    # Commit a changes
     con.commit()
-
-    # Close DB connection
     con.close()
 create_table()
 
-# con = sqlite3.connect('telegramm-bot/reputationBot.db')
 def get_members_from_DB(con):
     cur = con.cursor()
     cur.execute("SELECT members FROM reputation")
     results = cur.fetchall()
     # print(results)
     return results
-# get_members_from_DB(con)
-# con.close()
 
 def add_new_member_to_DB(con, name, data):
     cur = con.cursor()
-    # cur.execute('INSERT INTO reputation DEFAULT VALUES')
-    # con.commit()
-    # cur.execute('UPDATE reputation SET members = ? WHERE members IS NULL', (name,))
-    # con.commit()
     cur.execute('INSERT INTO reputation VALUES (?, ?)', (name, json.dumps(data),))
     con.commit()
 
-# def add_column_to_DB(con, name):
-#     cur = con.cursor()
-#     command = f'ALTER TABLE reputation ADD COLUMN {name} INT DEFAULT 0'
-#     cur.execute(command)
-
 def update_table(con, member, data):
     cur = con.cursor()
-    command = f'UPDATE reputation SET data = ? WHERE members = ?'
-    cur.execute(command, (json.dumps(data), member,))
+    cur.execute('UPDATE reputation SET data = ? WHERE members = ?', (json.dumps(data), member,))
     con.commit()
 
 def get_reputation_for_member(con, member):
@@ -88,11 +43,6 @@ def get_reputation_for_member(con, member):
     cur.execute("SELECT * FROM reputation WHERE members = ?", (member,))
     results = cur.fetchall()
     return results
-
-bot = telebot.TeleBot('1519220860:AAH4nvuot8wSaDemwxmo0mYy1MDFmMPY3jA')
-
-commands = ['/start', '/commands', '/help', '/show', '/change', '/test']
-# members = {'@helen': {'@rob':0}, '@rob': {'@helen':0}}
 
 def no_register(message):
     bot.send_message(message.chat.id, 'You are not register yet!')
@@ -141,49 +91,53 @@ def change_reputation_command(message, users, messanger, members, con):
             if (user in data.keys()):
                 data[user] += number
                 update_table(con, messanger, data)
-                bot.send_message(message.chat.id, 'Increased reputation ')
-                bot.send_message(message.chat.id, f'@{user}: {data[user]}')
+                msg = 'Increased reputation\n@{}: {}'.format(user, data[user])
+                bot.send_message(message.chat.id, msg)
+                # bot.send_message(message.chat.id, '@{}: {}'.format(user, data[user]))
             else:
-                bot.send_message(message.chat.id, f'No such member "@{user}", that join this reputation raiting in the chat')
+                bot.send_message(message.chat.id, 'No such member "@{}", that join this reputation raiting in the chat'.format(user))
     elif check_sign_position(message, '-'):
         for user in users:
             user = user[1:]
             if (user in data.keys()):
                 data[user] -= number
                 update_table(con, messanger, data)
-                bot.send_message(message.chat.id, 'Decrease reputation ')
-                bot.send_message(message.chat.id, f'@{user}: {data[user]}')
+                msg = 'Decrease reputation\n@{}: {}'.format(user, data[user])
+                bot.send_message(message.chat.id, msg)
+                # bot.send_message(message.chat.id, '@{}: {}'.format(user, data[user]))
             else:
-                bot.send_message(message.chat.id, f'No such member "@{user}", that join this reputation raiting in the chat')
+                bot.send_message(message.chat.id, 'No such member "@{}", that join this reputation raiting in the chat'.format(user))
     else:
         wrong_command(message)
 
 def show_reputation_command(con, message, messanger):
     data = json.loads(get_reputation_for_member(con, messanger)[0][1])
-    # print(data)
-    for key,val in data.items():
-        # print(f'{key}:{val}')
-        bot.send_message(message.chat.id, f'@{key}: {val}')
+    msg = ''
+    users = [item for item in message.text.split(' ') if item.startswith('@')]
+    print(users)
+    if users:
+        for user in users:
+            msg += '{}: {}\n'.format(user, data[user[1:]])
+    else:
+        for key,val in data.items():
+            msg += '@{}: {} \n'.format(key, val)
+    if not msg:
+        msg = 'You are alone in this raiting yet'
+    bot.send_message(message.chat.id, msg)
 
 @bot.message_handler(commands=[c[1:] for c in commands])
 def start_message(message):
-    # global members
-    # print(message)
-    con = sqlite3.connect('telegramm-bot/reputationBot.db')
-
-    messanger = f'{message.from_user.first_name}_{message.from_user.last_name}' if message.from_user.username == None else f'{message.from_user.username}'
-    # print(messanger)
+    print(message.text)
+    con = sqlite3.connect(db_path)
+    messanger = '{}_{}'.format(message.from_user.first_name, message.from_user.last_name) if message.from_user.username == None else '{}'.format(message.from_user.username)
     members = [item[0] for item in get_members_from_DB(con)]
-    # print(members)
-    if message.text == '/test':
-        print(json.loads(get_reputation_for_member(con, messanger)[0][1]))
-    if message.text == '/start' or message.text == '/start@test_mytest_isnottaken_bot':
+    if message.text == '/start' or message.text == '/start@{}'.format(bot_name):
         # if members.get(messanger):
         if messanger in members:
             bot.send_message(message.chat.id, 'You already joined this reputation raiting')
             show_reputation_command(con, message, messanger)
         else:
-            bot.send_message(message.chat.id, 'Hello, this bot is showing your reputation raiting with others members in the chat')
+            bot.send_message(message.chat.id, 'Hello, you joined reputation raiting bot.\nThis bot is showing your reputation raiting with others members in the chat')
             data = {}
             for item in members:
                 print(item)
@@ -197,20 +151,23 @@ def start_message(message):
             # add_column_to_DB(con, messanger)
 
         # print(members)
-    elif message.text == '/commands':
-        # if members.get(messanger):
+    elif message.text == '/commands' or message.text == '/commands@{}'.format(bot_name):
+
         if messanger in members:
-            bot.send_message(message.chat.id, 'List of all commands')
+            msg = 'List of all commands:\n'
             for item in commands:
-                bot.send_message(message.chat.id, item)
+                msg += '{}\n'.format(item)
+            bot.send_message(message.chat.id, msg)
         else:
-            no_register()
-    elif message.text == '/help':
-        description = 'With this bot you can change reputation status with everyone who joined ti this raiting (when typed command /start). /n You can type /change <user_name> <sign>(<number>) to change reputation./n '
+            no_register(message)
+    elif message.text == '/help' or message.text == '/help@{}'.format(bot_name):
+        description = 'With this bot you can change reputation status with everyone who joined ti this raiting (when typed command /start). \n You can type /change <user_name> <sign>(<number>) to change reputation.\n '
         bot.send_message(message.chat.id, description)
-    elif message.text == '/show':
+    elif '/show' in message.text:
         if messanger in members:
             show_reputation_command(con, message, messanger)
+        else:
+            no_register(message)
     elif '/change' in message.text:
         if messanger in members:
             users = [item for item in message.text.split(' ') if item.startswith('@')]
@@ -224,11 +181,9 @@ def start_message(message):
 
 @bot.message_handler(content_types=['text'])
 def send_text(message):
-    con = sqlite3.connect('telegramm-bot/reputationBot.db')
+    con = sqlite3.connect(db_path)
     members = [item[0] for item in get_members_from_DB(con)]
-    # print(members)
-
-    messanger = f'{message.from_user.first_name}_{message.from_user.last_name}' if message.from_user.username == None else f'{message.from_user.username}'
+    messanger = '{}_{}'.format(message.from_user.first_name, message.from_user.last_name) if message.from_user.username == None else '{}'.format(message.from_user.username)
 
     users = [item for item in message.text.split(' ') if item.startswith('@')]
     if users and ('+' in message.text or '-' in message.text):
@@ -238,4 +193,4 @@ def send_text(message):
             no_register(message)
     con.close()
 
-bot.polling()
+bot.polling(none_stop = True)
