@@ -1,0 +1,449 @@
+{
+  "ok": true,
+  "result": [
+    {
+      "update_id": 43311529,
+      "message": {
+        "message_id": 575,
+        "from": {
+          "id": 440453537,
+          "is_bot": false,
+          "first_name": "Алексей",
+          "last_name": "Канаев",
+          "username": "kanaev_oleksii",
+          "language_code": "ru"
+        },
+        "chat": {
+          "id": -1001432978297,
+          "title": "Тест",
+          "type": "supergroup"
+        },
+        "date": 1611211013,
+        "text": "Hello"
+      }
+    },
+    {
+      "update_id": 43311530,
+      "message": {
+        "message_id": 576,
+        "from": {
+          "id": 440453537,
+          "is_bot": false,
+          "first_name": "Алексей",
+          "last_name": "Канаев",
+          "username": "kanaev_oleksii",
+          "language_code": "ru"
+        },
+        "chat": {
+          "id": -1001432978297,
+          "title": "Тест",
+          "type": "supergroup"
+        },
+        "date": 1611211141,
+        "text": "Hello"
+      }
+    },
+    {
+      "update_id": 43311531,
+      "message": {
+        "message_id": 577,
+        "from": {
+          "id": 440453537,
+          "is_bot": false,
+          "first_name": "Алексей",
+          "last_name": "Канаев",
+          "username": "kanaev_oleksii",
+          "language_code": "ru"
+        },
+        "chat": {
+          "id": -1001432978297,
+          "title": "Тест",
+          "type": "supergroup"
+        },
+        "date": 1611211195,
+        "text": "Hello"
+      }
+    },
+    {
+      "update_id": 43311532,
+      "message": {
+        "message_id": 578,
+        "from": {
+          "id": 440453537,
+          "is_bot": false,
+          "first_name": "Алексей",
+          "last_name": "Канаев",
+          "username": "kanaev_oleksii",
+          "language_code": "ru"
+        },
+        "chat": {
+          "id": -1001432978297,
+          "title": "Тест",
+          "type": "supergroup"
+        },
+        "date": 1611211403,
+        "text": "hello"
+      }
+    },
+    {
+      "update_id": 43311533,
+      "message": {
+        "message_id": 579,
+        "from": {
+          "id": 440453537,
+          "is_bot": false,
+          "first_name": "Алексей",
+          "last_name": "Канаев",
+          "username": "kanaev_oleksii",
+          "language_code": "ru"
+        },
+        "chat": {
+          "id": -1001432978297,
+          "title": "Тест",
+          "type": "supergroup"
+        },
+        "date": 1611211451,
+        "text": "hello"
+      }
+    },
+    {
+      "update_id": 43311534,
+      "message": {
+        "message_id": 580,
+        "from": {
+          "id": 440453537,
+          "is_bot": false,
+          "first_name": "Алексей",
+          "last_name": "Канаев",
+          "username": "kanaev_oleksii",
+          "language_code": "ru"
+        },
+        "chat": {
+          "id": -1001432978297,
+          "title": "Тест",
+          "type": "supergroup"
+        },
+        "date": 1611212093,
+        "text": "hello"
+      }
+    },
+    {
+      "update_id": 43311535,
+      "message": {
+        "message_id": 352,
+        "from": {
+          "id": 440453537,
+          "is_bot": false,
+          "first_name": "Алексей",
+          "last_name": "Канаев",
+          "username": "kanaev_oleksii",
+          "language_code": "ru"
+        },
+        "chat": {
+          "id": 440453537,
+          "first_name": "Алексей",
+          "last_name": "Канаев",
+          "username": "kanaev_oleksii",
+          "type": "private"
+        },
+        "date": 1611212111,
+        "text": "Increase"
+      }
+    },
+    {
+      "update_id": 43311536,
+      "message": {
+        "message_id": 353,
+        "from": {
+          "id": 440453537,
+          "is_bot": false,
+          "first_name": "Алексей",
+          "last_name": "Канаев",
+          "username": "kanaev_oleksii",
+          "language_code": "ru"
+        },
+        "chat": {
+          "id": 440453537,
+          "first_name": "Алексей",
+          "last_name": "Канаев",
+          "username": "kanaev_oleksii",
+          "type": "private"
+        },
+        "date": 1611212115,
+        "text": "hello"
+      }
+    },
+    {
+      "update_id": 43311537,
+      "message": {
+        "message_id": 354,
+        "from": {
+          "id": 440453537,
+          "is_bot": false,
+          "first_name": "Алексей",
+          "last_name": "Канаев",
+          "username": "kanaev_oleksii",
+          "language_code": "ru"
+        },
+        "chat": {
+          "id": 440453537,
+          "first_name": "Алексей",
+          "last_name": "Канаев",
+          "username": "kanaev_oleksii",
+          "type": "private"
+        },
+        "date": 1611212289,
+        "text": "hello"
+      }
+    },
+    {
+      "update_id": 43311538,
+      "message": {
+        "message_id": 581,
+        "from": {
+          "id": 440453537,
+          "is_bot": false,
+          "first_name": "Алексей",
+          "last_name": "Канаев",
+          "username": "kanaev_oleksii",
+          "language_code": "ru"
+        },
+        "chat": {
+          "id": -1001432978297,
+          "title": "Тест",
+          "type": "supergroup"
+        },
+        "date": 1611212306,
+        "text": "hello"
+      }
+    },
+    {
+      "update_id": 43311539,
+      "message": {
+        "message_id": 582,
+        "from": {
+          "id": 440453537,
+          "is_bot": false,
+          "first_name": "Алексей",
+          "last_name": "Канаев",
+          "username": "kanaev_oleksii",
+          "language_code": "ru"
+        },
+        "chat": {
+          "id": -1001432978297,
+          "title": "Тест",
+          "type": "supergroup"
+        },
+        "date": 1611212655,
+        "text": "hello"
+      }
+    },
+    {
+      "update_id": 43311540,
+      "message": {
+        "message_id": 583,
+        "from": {
+          "id": 440453537,
+          "is_bot": false,
+          "first_name": "Алексей",
+          "last_name": "Канаев",
+          "username": "kanaev_oleksii",
+          "language_code": "ru"
+        },
+        "chat": {
+          "id": -1001432978297,
+          "title": "Тест",
+          "type": "supergroup"
+        },
+        "date": 1611212669,
+        "text": "/start@test_mytest_isnottaken_bot",
+        "entities": [
+          {
+            "offset": 0,
+            "length": 33,
+            "type": "bot_command"
+          }
+        ]
+      }
+    },
+    {
+      "update_id": 43311541,
+      "message": {
+        "message_id": 584,
+        "from": {
+          "id": 440453537,
+          "is_bot": false,
+          "first_name": "Алексей",
+          "last_name": "Канаев",
+          "username": "kanaev_oleksii",
+          "language_code": "ru"
+        },
+        "chat": {
+          "id": -1001432978297,
+          "title": "Тест",
+          "type": "supergroup"
+        },
+        "date": 1611212673,
+        "text": "/start@test_mytest_isnottaken_bot",
+        "entities": [
+          {
+            "offset": 0,
+            "length": 33,
+            "type": "bot_command"
+          }
+        ]
+      }
+    },
+    {
+      "update_id": 43311542,
+      "message": {
+        "message_id": 585,
+        "from": {
+          "id": 440453537,
+          "is_bot": false,
+          "first_name": "Алексей",
+          "last_name": "Канаев",
+          "username": "kanaev_oleksii",
+          "language_code": "ru"
+        },
+        "chat": {
+          "id": -1001432978297,
+          "title": "Тест",
+          "type": "supergroup"
+        },
+        "date": 1611212686,
+        "text": "/start@test_mytest_isnottaken_bot",
+        "entities": [
+          {
+            "offset": 0,
+            "length": 33,
+            "type": "bot_command"
+          }
+        ]
+      }
+    },
+    {
+      "update_id": 43311543,
+      "message": {
+        "message_id": 586,
+        "from": {
+          "id": 440453537,
+          "is_bot": false,
+          "first_name": "Алексей",
+          "last_name": "Канаев",
+          "username": "kanaev_oleksii",
+          "language_code": "ru"
+        },
+        "chat": {
+          "id": -1001432978297,
+          "title": "Тест",
+          "type": "supergroup"
+        },
+        "date": 1611212723,
+        "left_chat_participant": {
+          "id": 1524883599,
+          "is_bot": true,
+          "first_name": "TestBot",
+          "username": "test_mytest_isnottaken_bot"
+        },
+        "left_chat_member": {
+          "id": 1524883599,
+          "is_bot": true,
+          "first_name": "TestBot",
+          "username": "test_mytest_isnottaken_bot"
+        }
+      }
+    },
+    {
+      "update_id": 43311544,
+      "message": {
+        "message_id": 587,
+        "from": {
+          "id": 440453537,
+          "is_bot": false,
+          "first_name": "Алексей",
+          "last_name": "Канаев",
+          "username": "kanaev_oleksii",
+          "language_code": "ru"
+        },
+        "chat": {
+          "id": -1001432978297,
+          "title": "Тест",
+          "type": "supergroup"
+        },
+        "date": 1611212737,
+        "new_chat_participant": {
+          "id": 1524883599,
+          "is_bot": true,
+          "first_name": "TestBot",
+          "username": "test_mytest_isnottaken_bot"
+        },
+        "new_chat_member": {
+          "id": 1524883599,
+          "is_bot": true,
+          "first_name": "TestBot",
+          "username": "test_mytest_isnottaken_bot"
+        },
+        "new_chat_members": [
+          {
+            "id": 1524883599,
+            "is_bot": true,
+            "first_name": "TestBot",
+            "username": "test_mytest_isnottaken_bot"
+          }
+        ]
+      }
+    },
+    {
+      "update_id": 43311545,
+      "message": {
+        "message_id": 588,
+        "from": {
+          "id": 440453537,
+          "is_bot": false,
+          "first_name": "Алексей",
+          "last_name": "Канаев",
+          "username": "kanaev_oleksii",
+          "language_code": "ru"
+        },
+        "chat": {
+          "id": -1001432978297,
+          "title": "Тест",
+          "type": "supergroup"
+        },
+        "date": 1611212741,
+        "text": "/start",
+        "entities": [
+          {
+            "offset": 0,
+            "length": 6,
+            "type": "bot_command"
+          }
+        ]
+      }
+    },
+    {
+      "update_id": 43311546,
+      "message": {
+        "message_id": 355,
+        "from": {
+          "id": 440453537,
+          "is_bot": false,
+          "first_name": "Алексей",
+          "last_name": "Канаев",
+          "username": "kanaev_oleksii",
+          "language_code": "ru"
+        },
+        "chat": {
+          "id": 440453537,
+          "first_name": "Алексей",
+          "last_name": "Канаев",
+          "username": "kanaev_oleksii",
+          "type": "private"
+        },
+        "date": 1611216663,
+        "text": "hi"
+      }
+    }
+  ]
+}

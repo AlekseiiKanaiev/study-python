@@ -1,16 +1,31 @@
+
+
+
+from flask import Flask, request
 import telebot
-import sqlite3
-from sqlite3 import Error
 import json
+import sqlite3
+# from sqlite3 import Error
 from config import Configurations
 
-print(Configurations.bot_name)
 bot_name = Configurations.bot_name
 db_path = Configurations.db_path
-bot_id = Configurations.bot_id
-
-bot = telebot.TeleBot(bot_id)
+secret = Configurations.secret
+token = Configurations.bot_id
+url = 'https://alexeykanaev.pythonanywhere.com/' + secret
+bot = telebot.TeleBot(token, threaded=False)
 bot.remove_webhook()
+bot.set_webhook(url=url)
+
+app = Flask(__name__)
+
+@app.route('/{}'.format(secret), methods=["POST"])
+def webhook():
+    update = telebot.types.Update.de_json(request.stream.read().decode('utf-8'))
+    bot.process_new_updates([update])
+    # print(update, flush=True)
+    return "OK", 200
+
 commands = [
     '/start',
     '/commands',
@@ -23,14 +38,14 @@ commands = [
     '/showtoppairings'
     ]
 
-def create_table():
-    con = sqlite3.connect(db_path)
-    cur = con.cursor()
-    cur.execute('CREATE TABLE IF NOT EXISTS reputation (members TEXT, data TEXT)')
-    con.commit()
-    con.close()
-    # print('DB created')
-create_table()
+# def create_table():
+#     con = sqlite3.connect(db_path)
+#     cur = con.cursor()
+#     cur.execute('CREATE TABLE IF NOT EXISTS reputation (members TEXT, data TEXT)')
+#     con.commit()
+#     con.close()
+#     # print('DB created')
+# create_table()
 
 def get_members_from_DB(con):
     cur = con.cursor()
@@ -272,5 +287,3 @@ def send_text(message):
         else:
             no_register(message)
     con.close()
-
-bot.polling(none_stop = True)
